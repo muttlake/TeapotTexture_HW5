@@ -1,0 +1,14 @@
+﻿  main.cpp
+c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\objfileloadergithub\source\obj_loader.h(614): warning C4018: '<': signed/unsigned mismatch
+c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\objfileloadergithub\source\obj_loader.h(651): warning C4018: '<': signed/unsigned mismatch
+c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\objfileloadergithub\source\obj_loader.h(657): warning C4018: '<': signed/unsigned mismatch
+c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\objfileloadergithub\source\obj_loader.h(911): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\main.cpp(283): warning C4018: '<': signed/unsigned mismatch
+c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\main.cpp(296): warning C4018: '<': signed/unsigned mismatch
+c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\main.cpp(309): warning C4018: '<': signed/unsigned mismatch
+c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\main.cpp(343): warning C4018: '<': signed/unsigned mismatch
+c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\main.cpp(355): warning C4018: '<': signed/unsigned mismatch
+c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\main.cpp(367): warning C4018: '<': signed/unsigned mismatch
+c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\main.cpp(379): warning C4018: '<': signed/unsigned mismatch
+  Timothy_Shepard_HW5_VSc.vcxproj -> C:\Users\shepb\Courses\Cosc4370\Timothy_Shepard_HW5_VSc\Debug\Timothy_Shepard_HW5_VSc.exe
+  Timothy_Shepard_HW5_VSc.vcxproj -> C:\Users\shepb\Courses\Cosc4370\Timothy_Shepard_HW5_VSc\Debug\Timothy_Shepard_HW5_VSc.pdb (Partial PDB)
