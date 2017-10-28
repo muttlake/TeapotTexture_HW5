@@ -12,6 +12,8 @@ in vec3 lc1;
 in vec3 lc2;
 in vec3 lc3;
 
+uniform sampler2D brickTexture;
+
 out vec4 fColor;
 
 void main() {
@@ -27,5 +29,6 @@ void main() {
 	//vec3 diffuse = Kd * diff1;
 
 	//set output color for fragment for display in openGL
-	fColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	//fColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	fColor = texture(brickTexture, t);
 }

@@ -4,12 +4,12 @@ c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\
 c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\ObjFileLoaderGithub/Source/OBJ_Loader.h(651): warning C4018: '<': signed/unsigned mismatch
 c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\ObjFileLoaderGithub/Source/OBJ_Loader.h(657): warning C4018: '<': signed/unsigned mismatch
 c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\ObjFileLoaderGithub/Source/OBJ_Loader.h(911): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-main.cpp(284): warning C4018: '<': signed/unsigned mismatch
-main.cpp(297): warning C4018: '<': signed/unsigned mismatch
-main.cpp(310): warning C4018: '<': signed/unsigned mismatch
-main.cpp(344): warning C4018: '<': signed/unsigned mismatch
-main.cpp(356): warning C4018: '<': signed/unsigned mismatch
-main.cpp(368): warning C4018: '<': signed/unsigned mismatch
-main.cpp(380): warning C4018: '<': signed/unsigned mismatch
+main.cpp(285): warning C4018: '<': signed/unsigned mismatch
+main.cpp(298): warning C4018: '<': signed/unsigned mismatch
+main.cpp(311): warning C4018: '<': signed/unsigned mismatch
+main.cpp(345): warning C4018: '<': signed/unsigned mismatch
+main.cpp(357): warning C4018: '<': signed/unsigned mismatch
+main.cpp(369): warning C4018: '<': signed/unsigned mismatch
+main.cpp(381): warning C4018: '<': signed/unsigned mismatch
   Timothy_Shepard_HW5_VSc.vcxproj -> C:\Users\shepb\Courses\Cosc4370\Timothy_Shepard_HW5_VSc\Debug\Timothy_Shepard_HW5_VSc.exe
   Timothy_Shepard_HW5_VSc.vcxproj -> C:\Users\shepb\Courses\Cosc4370\Timothy_Shepard_HW5_VSc\Debug\Timothy_Shepard_HW5_VSc.pdb (Partial PDB)

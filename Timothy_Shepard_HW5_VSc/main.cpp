@@ -31,6 +31,7 @@ GLuint vno;
 GLuint positionID, texCoordID, normalID;
 GLuint indexBufferID;
 GLuint positionBuffer, texCoordBuffer, normalBuffer;
+GLuint texID;		// The ID of the "texture" variable in the shader
 
 struct Vertex {
 	GLfloat x, y, z;
@@ -521,6 +522,7 @@ int main(int argc, char** argv) {
 	std::cout << "GL Shading Language Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n\n";
 	printf("--------------------------------------------------------------\n");
 
+	///////////////////////// Start Texture /////////////////////////
 	//Copied this from SOIL documentation
 	GLuint brick_texture = SOIL_load_OGL_texture
 	(
@@ -554,6 +556,9 @@ int main(int argc, char** argv) {
 		printf("SOIL loaded file bump.jpg\n");
 	}
 	
+	///////////////////////// End   Texture /////////////////////////
+
+
 	// Make a shader
 	char* vertexShaderSourceCode = readFile("vertexShader.vsh");
 	char* fragmentShaderSourceCode = readFile("fragmentShader.vsh");
@@ -601,10 +606,30 @@ int main(int argc, char** argv) {
 	glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
 	glVertexAttribPointer(normalID, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
 
+	///////////////////////// Start Texture /////////////////////////
+	glEnable(GL_TEXTURE_2D);
+
+	// Set the preferences
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);	
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	// Do brick texture
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, brick_texture);
+
+	texID = glGetUniformLocation(shaderProgramID, "brickTexture");
+	glActiveTexture(GL_TEXTURE0);				// Turn on texture unit 0
+	glUniform1i(texID, 0);
+	///////////////////////// End   Texture /////////////////////////
+
+
 	// Put indices in Index Buffer
 	glGenBuffers(1, &indexBufferID);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferID);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndices * sizeof(GLuint), vindices, GL_STATIC_DRAW);
+
 
 	//use shader program
 	glUseProgram(shaderProgramID);
