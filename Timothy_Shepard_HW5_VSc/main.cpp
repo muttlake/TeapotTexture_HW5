@@ -11,6 +11,7 @@
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "ObjFileLoaderGithub/Source/OBJ_Loader.h"
+#include "SOIL.h"
 #include <stdio.h>
 #include <iostream>
 #include <string>
@@ -482,14 +483,19 @@ int main(int argc, char** argv) {
 	objl::Loader loader;
 	loader.LoadFile("teapot2.obj");
 	printf("\nLoaded teapot2.obj\n\n");
-	printf("--------------------------------------------------------------\n");
 	printObjContents(loader);
 
+
+
+
 	int numIndices = loader.LoadedMeshes[0].Indices.size();
-	std::cout << "The real number of indices is: " << numIndices << "\n";
 	GLuint* vindices;
 	vindices = buildIndicesListFromObj(loader);
 	//printTriangleIndices(vindices, numVertices);
+
+	printf("--------------------------------------------------------------\n");
+	std::cout << "The real number of indices is: " << numIndices << "\n";
+	printf("--------------------------------------------------------------\n");
 
 	int numVertices = loader.LoadedMeshes[0].Vertices.size();
 	glm::vec3* vpositions;
@@ -503,6 +509,7 @@ int main(int argc, char** argv) {
 	glm::vec2* vtex_coords;
 	vtex_coords = buildTexCoordVec2sFromObj(loader);
 
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(700, 700);
@@ -512,7 +519,41 @@ int main(int argc, char** argv) {
 	glewInit();  //glewInit() for Windows only
 	std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 	std::cout << "GL Shading Language Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n\n";
+	printf("--------------------------------------------------------------\n");
 
+	//Copied this from SOIL documentation
+	GLuint brick_texture = SOIL_load_OGL_texture
+	(
+		"brick.png",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	);
+
+	if (0 == brick_texture)
+	{
+		printf("SOIL loading error: '%s'\n", SOIL_last_result());
+	}
+	else {
+		printf("SOIL loaded file brick.png\n");
+	}
+
+	GLuint bump_texture = SOIL_load_OGL_texture
+	(
+		"bump.jpg",
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+	);
+
+	if (0 == bump_texture)
+	{
+		printf("SOIL loading error: '%s'\n", SOIL_last_result());
+	}
+	else {
+		printf("SOIL loaded file bump.jpg\n");
+	}
+	
 	// Make a shader
 	char* vertexShaderSourceCode = readFile("vertexShader.vsh");
 	char* fragmentShaderSourceCode = readFile("fragmentShader.vsh");
