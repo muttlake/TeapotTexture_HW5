@@ -31,7 +31,7 @@ GLuint vno;
 GLuint positionID, texCoordID, normalID;
 GLuint indexBufferID;
 GLuint positionBuffer, texCoordBuffer, normalBuffer;
-GLuint texID;		// The ID of the "texture" variable in the shader
+GLuint texID, tex2ID;		// The ID of the "texture" variable in the shader
 
 struct Vertex {
 	GLfloat x, y, z;
@@ -628,15 +628,23 @@ int main(int argc, char** argv) {
 
 	///////////////////////// Start Texture /////////////////////////
 
+	//bump texture
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, bump_texture);
 
+	tex2ID = glGetUniformLocation(shaderProgramID, "bumpTexture");
+	glActiveTexture(GL_TEXTURE1);				// Turn on texture unit 0
+	glUniform1i(tex2ID, 0);
 
-	// Do brick texture
+	//brick texture
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, brick_texture);
 
 	texID = glGetUniformLocation(shaderProgramID, "brickTexture");
 	glActiveTexture(GL_TEXTURE0);				// Turn on texture unit 0
 	glUniform1i(texID, 0);
+
+
 	///////////////////////// End   Texture /////////////////////////
 
 
