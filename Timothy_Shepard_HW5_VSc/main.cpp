@@ -385,6 +385,17 @@ glm::vec2* buildTexCoordVec2sFromObj(objl::Loader loader)
 	return allTexCoords;
 }
 
+void printAllTexCoords(glm::vec2* allTexCoords, int numVertices)
+{
+	std::cout << "Printing all texture coordinates vec2:\n";
+	for (int i = 0; i < numVertices; i++)
+	{
+		std::cout << "Texture Coordinate For Vertex " << i << ": ";
+		std::cout << allTexCoords[i][0] << " " << allTexCoords[i][1];
+		std::cout << std::endl;
+	}
+}
+
 ///////////////////////////////////////////////////////////////
 // Main Part of program
 ///////////////////////////////////////////////////////////////
@@ -396,9 +407,19 @@ void changeViewport(int w, int h) {
 
 // render
 void render() {
-	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);	// Turn on depth culling
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+
+	// Set the preferences
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	//glDrawElements(GL_TRIANGLES, NUM_INDICES, GL_UNSIGNED_INT, NULL);
+
 	glDrawArrays(GL_TRIANGLES, 0, NUM_INDICES);
 	glutSwapBuffers();
 }
@@ -486,22 +507,20 @@ int main(int argc, char** argv) {
 	printf("\nLoaded teapot2.obj\n\n");
 	printObjContents(loader);
 
-
-
-
 	int numIndices = loader.LoadedMeshes[0].Indices.size();
 	GLuint* vindices;
 	vindices = buildIndicesListFromObj(loader);
 	//printTriangleIndices(vindices, numVertices);
 
-	printf("--------------------------------------------------------------\n");
-	std::cout << "The real number of indices is: " << numIndices << "\n";
-	printf("--------------------------------------------------------------\n");
-
 	int numVertices = loader.LoadedMeshes[0].Vertices.size();
 	glm::vec3* vpositions;
 	vpositions = buildPositionsVec3sFromObj(loader);
 	//printAllPositions(vpositions, numVertices);
+
+	printf("--------------------------------------------------------------\n");
+	std::cout << "The real number of indices is: " << numIndices << "\n";
+	std::cout << "The real number of vertices is: " << numVertices << "\n";
+	printf("--------------------------------------------------------------\n");
 
 	glm::vec3* vnormals;
 	vnormals = buildNormalsVec3sFromObj(loader);
@@ -509,6 +528,7 @@ int main(int argc, char** argv) {
 
 	glm::vec2* vtex_coords;
 	vtex_coords = buildTexCoordVec2sFromObj(loader);
+	//printAllTexCoords(vtex_coords, numVertices);
 
 
 	glutInit(&argc, argv);
@@ -607,13 +627,8 @@ int main(int argc, char** argv) {
 	glVertexAttribPointer(normalID, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
 
 	///////////////////////// Start Texture /////////////////////////
-	glEnable(GL_TEXTURE_2D);
 
-	// Set the preferences
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);	
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
 
 	// Do brick texture
 	glActiveTexture(GL_TEXTURE0);
@@ -663,7 +678,6 @@ int main(int argc, char** argv) {
 	glUniform3fv(light3c, 1, glm::value_ptr(light3color));
 
 	//glutKeyboardFunc(switchMVP);
-
 	glEnableVertexAttribArray(positionID);
 	glEnableVertexAttribArray(texCoordID);
 	glEnableVertexAttribArray(normalID);
