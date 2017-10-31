@@ -31,7 +31,9 @@ GLuint vno;
 GLuint positionID, texCoordID, normalID;
 GLuint indexBufferID;
 GLuint positionBuffer, texCoordBuffer, normalBuffer;
-GLuint texID, tex2ID;		// The ID of the "texture" variable in the shader
+GLuint brickTextureID, bumpTextureID;	
+GLuint brick_texture, bump_texture;
+// The ID of the "texture" variable in the shader
 
 struct Vertex {
 	GLfloat x, y, z;
@@ -409,18 +411,34 @@ void changeViewport(int w, int h) {
 void render() {
 	glEnable(GL_DEPTH_TEST);	// Turn on depth culling
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_TEXTURE_2D);
 	//glEnable(GL_CULL_FACE);
 	//glCullFace(GL_BACK);
 
+	//When rendering an objectwith this program.
+
+
+
+
+	//glActiveTexture(GL_TEXTURE0);
+
 	// Set the preferences
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	//glDrawElements(GL_TRIANGLES, NUM_INDICES, GL_UNSIGNED_INT, NULL);
 
+
+
+
 	glDrawArrays(GL_TRIANGLES, 0, NUM_INDICES);
+
+
+
+	//glActiveTexture(GL_TEXTURE0);
+
+
+
 	glutSwapBuffers();
 }
 
@@ -544,7 +562,7 @@ int main(int argc, char** argv) {
 
 	///////////////////////// Start Texture /////////////////////////
 	//Copied this from SOIL documentation
-	GLuint brick_texture = SOIL_load_OGL_texture
+	brick_texture = SOIL_load_OGL_texture
 	(
 		"brick.png",
 		SOIL_LOAD_AUTO,
@@ -560,7 +578,7 @@ int main(int argc, char** argv) {
 		printf("SOIL loaded file brick.png\n");
 	}
 
-	GLuint bump_texture = SOIL_load_OGL_texture
+	bump_texture = SOIL_load_OGL_texture
 	(
 		"bump.jpg",
 		SOIL_LOAD_AUTO,
@@ -629,21 +647,78 @@ int main(int argc, char** argv) {
 	///////////////////////// Start Texture /////////////////////////
 
 	//bump texture
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, bump_texture);
 
-	tex2ID = glGetUniformLocation(shaderProgramID, "bumpTexture");
-	glActiveTexture(GL_TEXTURE1);				// Turn on texture unit 0
-	glUniform1i(tex2ID, 0);
 
-	//brick texture
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, brick_texture);
 
-	texID = glGetUniformLocation(shaderProgramID, "brickTexture");
-	glActiveTexture(GL_TEXTURE0);				// Turn on texture unit 0
-	glUniform1i(texID, 0);
 
+
+	//glActiveTexture(GL_TEXTURE1);
+	//glBindTexture(GL_TEXTURE_2D, bump_texture);
+	//tex2ID = glGetUniformLocation(shaderProgramID, "bumpTexture");
+	//glActiveTexture(GL_TEXTURE1);				// Turn on texture unit 1
+	//glUniform1i(tex2ID, 1);
+
+	////brick texture
+	//glActiveTexture(GL_TEXTURE0);
+	//glBindTexture(GL_TEXTURE_2D, brick_texture);
+	//texID = glGetUniformLocation(shaderProgramID, "brickTexture");
+	//glActiveTexture(GL_TEXTURE0);				// Turn on texture unit 0
+	//glUniform1i(texID, 0);
+
+	// Turn on texture unit 0
+	//glActiveTexture(GL_TEXTURE0);
+
+
+	//brickTextureID = glGetUniformLocation(shaderProgramID, "brickTexture");
+	//bumpTextureID = glGetUniformLocation(shaderProgramID, "bumpTexture");
+	////glUseProgram(program);
+	//glUniform1i(brickTextureID, 0); //Texture unit 0 is for base images.
+	//glUniform1i(bumpTextureID, 1); //Texture unit 2 is for normal maps.
+
+	//glActiveTexture(GL_TEXTURE0);
+	//glBindTexture(GL_TEXTURE_2D, brick_texture);
+
+	//glActiveTexture(GL_TEXTURE1);
+	//glBindTexture(GL_TEXTURE_2D, bump_texture);
+
+	//glActiveTexture(GL_TEXTURE0);
+
+	//// Load textures
+	//GLuint textures[2];
+	//glGenTextures(2, textures);
+
+	//int width, height;
+	//unsigned char* image;
+
+	//glActiveTexture(GL_TEXTURE0);
+	//glBindTexture(GL_TEXTURE_2D, textures[0]);
+	//	image = SOIL_load_image("brick.png", &width, &height, 0, SOIL_LOAD_RGB);
+	//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	//	SOIL_free_image_data(image);
+	//glUniform1i(glGetUniformLocation(shaderProgramID, "brickTexture"), 0);
+
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+
+	//glActiveTexture(GL_TEXTURE1);
+	//glBindTexture(GL_TEXTURE_2D, textures[1]);
+	//	image = SOIL_load_image("bump.jpg", &width, &height, 0, SOIL_LOAD_RGB);
+	//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	//	SOIL_free_image_data(image);
+	//glUniform1i(glGetUniformLocation(shaderProgramID, "bumpTexture"), 1);
+
+	////glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	////glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	////glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	////glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	//glActiveTexture(GL_TEXTURE0);
 
 	///////////////////////// End   Texture /////////////////////////
 
@@ -656,6 +731,38 @@ int main(int argc, char** argv) {
 
 	//use shader program
 	glUseProgram(shaderProgramID);
+
+	brickTextureID = glGetUniformLocation(shaderProgramID, "brickTexture");
+	glUniform1i(brickTextureID, 0);
+
+	bumpTextureID = glGetUniformLocation(shaderProgramID, "bumpTexture");
+	glUniform1i(bumpTextureID, 1);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, brick_texture);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, bump_texture);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+
+
+
 
 	GLuint MVPID = glGetUniformLocation(shaderProgramID, "MVP");
 	glUniformMatrix4fv(MVPID, 1, GL_FALSE, &MVP[0][0]);

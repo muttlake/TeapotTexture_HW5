@@ -12,6 +12,8 @@ in vec3 lc1;
 in vec3 lc2;
 in vec3 lc3;
 
+//uniform sampler2D brickTexture;
+//uniform sampler2D bumpTexture;
 uniform sampler2D brickTexture;
 uniform sampler2D bumpTexture;
 
@@ -19,35 +21,53 @@ out vec4 fColor;
 
 void main() {
 
-	// Apply bump texture to normal
-	// lookup normal from normal map, move from [0,1] to  [-1, 1] range, normalize
-	//vec3 normal = 2.0 * texture2D (normalTexture, gl_TexCoord[0].st).rgb - 1.0;
-	//normal = normalize(normal);
-	vec3 bumpNormal = 2.0 * texture2D(bumpTexture, t).rgb - 1.0;
-	bumpNormal = normalize(bumpNormal);
-
+	// Do Bump Mapping
+	vec3 bumpNormal = texture2D(bumpTexture, t).rgb * 2.0 - 1.0;
+	//bumpNormal = normalize(bumpNormal);
+	//vec3 turbNormal = vec3(n.x + bumpNormal.x, n.y + bumpNormal.y, n.z + bumpNormal.z);
+	//turbNormal = normalize(turbNormal);
+	vec3 turbNormal = n + bumpNormal;
+	turbNormal = normalize(turbNormal);
 
 	//Diffuse Color
-	float Kd = 1.0f;
+	float Kd = 0.9f;
 
 	//vec3 diff1 = lc1 * max(dot(n, ld1), 0.0);
 	//vec3 diff2 = lc2 * max(dot(n, ld2), 0.0);
 	//vec3 diff3 = lc3 * max(dot(n, ld3), 0.0);
 
-	vec3 diff1 = lc1 * max(dot(bumpNormal, ld1), 0.0);
-	vec3 diff2 = lc2 * max(dot(bumpNormal, ld2), 0.0);
-	vec3 diff3 = lc3 * max(dot(bumpNormal, ld3), 0.0);
+	//vec3 diff1 = lc1 * max(dot(bumpNormal, ld1), 0.0);  // this is not the right one because
+	//vec3 diff2 = lc2 * max(dot(bumpNormal, ld2), 0.0);  // it means lighting doesnt matter
+	//vec3 diff3 = lc3 * max(dot(bumpNormal, ld3), 0.0);
+
+	vec3 diff1 = lc1 * max(dot(turbNormal, ld1), 0.0);
+	vec3 diff2 = lc2 * max(dot(turbNormal, ld2), 0.0);
+	vec3 diff3 = lc3 * max(dot(turbNormal, ld3), 0.0);
 
 	vec3 diffuse = Kd * (diff1 + diff2 + diff3);
+
+	////Ambient Color
+	//float Ka = 0.1f;
+
+	//vec3 amb1 = lc1;
+	//vec3 amb2 = lc2;
+	//vec3 amb3 = lc3;
+
+	//vec3 ambient = Ka * (amb1 + amb2 + amb3);
+	////vec3 ambient = Ka * amb3;
+
+	////calculate output color
+	//vec4 c = vec4(( diffuse + ambient), 1.0f);
 
 	vec4 diffuseVec4 = vec4(diffuse, 0.0f);
 
 	//Texture color
 	vec4 brickColor = texture2D(brickTexture, t);
+	vec4 bumpColor = texture2D(bumpTexture, t);
 	vec4 lightedBrickColor = diffuseVec4 * brickColor;
+	//vec4 lightedBrickColor = c * brickColor;
 
 	//set output color for fragment for display in openGL
-	//fColor = vec4(t, 1.0f, 1.0f) * vec4(1.0f, 1.0f, 1.0f, 1.0f) ;
-	//fColor = brickColor;
+	//fColor = bumpColor;
 	fColor = lightedBrickColor;
 }
