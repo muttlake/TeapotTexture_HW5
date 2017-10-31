@@ -23,15 +23,16 @@ void main() {
 
 	// Do Bump Mapping
 	vec3 bumpNormal = texture2D(bumpTexture, t).rgb * 2.0 - 1.0;
-	//bumpNormal = normalize(bumpNormal);
-	//vec3 turbNormal = vec3(n.x + bumpNormal.x, n.y + bumpNormal.y, n.z + bumpNormal.z);
+	vec3 bumpNormal2 = normalize(bumpNormal);
+	//vec3 turbNormal = vec3(n.x + bumpNormal2.x, n.y + bumpNormal2.y, n.z + bumpNormal2.z);
 	//turbNormal = normalize(turbNormal);
 	vec3 turbNormal = n + bumpNormal;
-	turbNormal = normalize(turbNormal);
+	vec3 turbNormal2 = normalize(turbNormal);
 
 	//Diffuse Color
-	float Kd = 0.9f;
+	float Kd = 1.0f;
 
+	//n = normalize(n);
 	//vec3 diff1 = lc1 * max(dot(n, ld1), 0.0);
 	//vec3 diff2 = lc2 * max(dot(n, ld2), 0.0);
 	//vec3 diff3 = lc3 * max(dot(n, ld3), 0.0);
@@ -40,9 +41,9 @@ void main() {
 	//vec3 diff2 = lc2 * max(dot(bumpNormal, ld2), 0.0);  // it means lighting doesnt matter
 	//vec3 diff3 = lc3 * max(dot(bumpNormal, ld3), 0.0);
 
-	vec3 diff1 = lc1 * max(dot(turbNormal, ld1), 0.0);
-	vec3 diff2 = lc2 * max(dot(turbNormal, ld2), 0.0);
-	vec3 diff3 = lc3 * max(dot(turbNormal, ld3), 0.0);
+	vec3 diff1 = lc1 * max(dot(turbNormal2, ld1), 0.0);
+	vec3 diff2 = lc2 * max(dot(turbNormal2, ld2), 0.0);
+	vec3 diff3 = lc3 * max(dot(turbNormal2, ld3), 0.0);
 
 	vec3 diffuse = Kd * (diff1 + diff2 + diff3);
 
@@ -65,9 +66,11 @@ void main() {
 	vec4 brickColor = texture2D(brickTexture, t);
 	vec4 bumpColor = texture2D(bumpTexture, t);
 	vec4 lightedBrickColor = diffuseVec4 * brickColor;
-	//vec4 lightedBrickColor = c * brickColor;
+	vec4 lightedBumpColor = diffuseVec4 * bumpColor;
+
+
 
 	//set output color for fragment for display in openGL
-	//fColor = bumpColor;
+	//fColor = lightedBumpColor;
 	fColor = lightedBrickColor;
 }

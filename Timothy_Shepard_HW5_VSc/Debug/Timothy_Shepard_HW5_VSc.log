@@ -1,2 +1,15 @@
-﻿  Timothy_Shepard_HW5_VSc.vcxproj -> C:\Users\shepb\Courses\Cosc4370\Timothy_Shepard_HW5_VSc\Debug\Timothy_Shepard_HW5_VSc.exe
+﻿cl : Command line warning D9007: '/Gm' requires '/Zi or /ZI'; option ignored
+  main.cpp
+c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\ObjFileLoaderGithub/Source/OBJ_Loader.h(614): warning C4018: '<': signed/unsigned mismatch
+c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\ObjFileLoaderGithub/Source/OBJ_Loader.h(651): warning C4018: '<': signed/unsigned mismatch
+c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\ObjFileLoaderGithub/Source/OBJ_Loader.h(657): warning C4018: '<': signed/unsigned mismatch
+c:\users\shepb\courses\cosc4370\timothy_shepard_hw5_vsc\timothy_shepard_hw5_vsc\ObjFileLoaderGithub/Source/OBJ_Loader.h(911): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+main.cpp(287): warning C4018: '<': signed/unsigned mismatch
+main.cpp(300): warning C4018: '<': signed/unsigned mismatch
+main.cpp(313): warning C4018: '<': signed/unsigned mismatch
+main.cpp(347): warning C4018: '<': signed/unsigned mismatch
+main.cpp(359): warning C4018: '<': signed/unsigned mismatch
+main.cpp(371): warning C4018: '<': signed/unsigned mismatch
+main.cpp(383): warning C4018: '<': signed/unsigned mismatch
+  Timothy_Shepard_HW5_VSc.vcxproj -> C:\Users\shepb\Courses\Cosc4370\Timothy_Shepard_HW5_VSc\Debug\Timothy_Shepard_HW5_VSc.exe
   Timothy_Shepard_HW5_VSc.vcxproj -> C:\Users\shepb\Courses\Cosc4370\Timothy_Shepard_HW5_VSc\Debug\Timothy_Shepard_HW5_VSc.pdb (Partial PDB)

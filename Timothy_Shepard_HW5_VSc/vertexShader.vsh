@@ -15,6 +15,10 @@ uniform vec3 light1color;
 uniform vec3 light2color;
 uniform vec3 light3color;
 
+
+//uniform sampler2D bumpTexture;
+
+
 out vec3 v;
 out vec2 t;
 out vec3 n;
@@ -35,6 +39,15 @@ void main() {
 
 	n = (transpose(inverse(MV))* vec4(s_vNormal, 0.0f)).xyz;
 	n = normalize(n);
+
+	//// Do Bump Mapping
+	//vec3 bumpNormal = texture2D(bumpTexture, t).rgb * 2.0 - 1.0;
+	//vec3 bumpNormal2 = normalize(bumpNormal);
+	//vec3 turbNormal = vec3(n.x + bumpNormal2.x, n.y + bumpNormal2.y, n.z + bumpNormal2.z);
+	////turbNormal = normalize(turbNormal);
+	////vec3 turbNormal = n + bumpNormal;
+	//vec3 turbNormal2 = normalize(turbNormal);
+	//n = turbNormal2;
 
 	ld1 = -1 * (MV * vec4(light1direction, 0.0f)).xyz;
 	ld1 = normalize(ld1);
